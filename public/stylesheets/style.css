@@ -29,4 +29,7 @@ html, body {
   .footers {
     margin-top: auto;
   }
-  
+  .sec2{
+    margin-top: 100px;
+    margin-bottom: 50px;
+  }

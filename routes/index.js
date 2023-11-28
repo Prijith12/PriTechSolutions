@@ -20,7 +20,7 @@ var cards=[
 }
 ]
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express',cards });
+  res.render('index', { title: 'Express',cards,admin:false });
 });
 
 module.exports = router;
