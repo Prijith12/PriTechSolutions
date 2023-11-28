@@ -1,0 +1,32 @@
+.navbar-brand {
+    font-family: 'Arial', sans-serif;
+    font-weight: bold;
+    font-size: 28px;
+    color: #303134; /* Blueish black color */
+    text-shadow: 2px 2px 4px rgba(70, 70, 70, 0.6); /* Darker gray shadow */
+    font-style: italic; /* Adding italic style */
+    /* Add any other styles or effects you prefer */
+}
+
+.footers{
+    margin-top: auto;
+    background-color:#e9ecef;
+    margin-bottom: 0%;
+}
+html, body {
+    height: 100%;
+    margin: 0;
+  }
+  
+  .wrapper {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 30px;
+    margin-bottom: 0%;
+  }
+  
+  .footers {
+    margin-top: auto;
+  }
+  
