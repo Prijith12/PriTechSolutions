@@ -33,3 +33,21 @@ html, body {
     margin-top: 100px;
     margin-bottom: 50px;
   }
+  .admin-form{
+    margin-top: 100px;
+  }
+  /* Keep your existing CSS */
+
+/* Adjust the wrapper and footer classes */
+.wrapper {
+  min-height: calc(100vh - 180px); /* Adjust as needed */
+  display: flex;
+  flex-direction: column;
+  margin-top: 30px;
+  margin-bottom: 0;
+}
+
+.footers {
+  margin-top: auto;
+  margin-bottom: 0; /* Set the margin-bottom to 0 to reduce extra space */
+}

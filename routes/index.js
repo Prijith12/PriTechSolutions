@@ -22,5 +22,7 @@ var cards=[
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express',cards,admin:false });
 });
-
+router.get('/consub',function(req,res){
+res.send("you have successfully submitted your details")
+})
 module.exports = router;

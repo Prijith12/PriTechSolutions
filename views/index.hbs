@@ -78,51 +78,25 @@ Get your stunning static website for just 3500 rupees! We use HTML, CSS, and Jav
 </div>
 </div>
 
-<footer class="footers">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-4">
-        <h5>Contact Us</h5>
-        <p>Email: Prijitht970@gmail.com</p>
-        <p>Phone: 9037115409</p>
+
+  <div class="container mt-5">
+    <h2>Contact Us</h2>
+    <form id="contactForm" action="/consub" method="get">
+      <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" class="form-control" id="name" name="name" required>
       </div>
-      <div class="col-md-4">
-        <h5>Follow Us</h5>
-        <ul class="list-inline">
-          <li class="list-inline-item">
-            <a href="https://www.instagram.com/prijith_t/?hl=en">
-              <i class="fab fa-instagram"></i>
-              <span>Instagram</span>
-            </a>
-          </li>
-  
-          <li class="list-inline-item">
-            <a href="https://www.linkedin.com/in/prijith-t-41283827a/">
-              <i class="fab fa-linkedin-in"></i>
-              <span>LinkedIn</span>
-            </a>
-          </li>
-        </ul>
+      <div class="form-group">
+        <label for="contactNumber">Contact Number:</label>
+        <input type="text" class="form-control" id="contactNumber" name="contactNumber" required>
       </div>
-      <div class="col-md-4">
-        <h5>Quick Links</h5>
-        <ul class="list-unstyled">
-          <li><a href="#">Home</a></li>
-          <li><a href="#">Services</a></li>
-          <li><a href="#">About Us</a></li>
-          <li><a href="#">Contact Us</a></li>
-        </ul>
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" class="form-control" id="email" name="email" required>
       </div>
-    </div>
-    <hr>
-    <div class="row">
-      <div class="col-md-12">
-        <p class="text-muted">© 2023 Pritechsolutions. All rights reserved.</p>
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary">Submit</button>
       </div>
-    </div>
+    </form>
   </div>
-</footer>
-
-
-  
 </div>
