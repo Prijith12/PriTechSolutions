@@ -1,0 +1,25 @@
+<a href="/admin/addservice" class="btn btn-primary mt-4">Add Services</a>
+<h3 class="mt-5">Services</h3>
+<table class="table table-striped ">
+  <thead>
+    <tr>
+     
+      <th scope="col">Title</th>
+      <th scope="col">Describtion</th>
+      <th scope="col">Image</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each cards}}
+    <tr>
+      <td>{{this.titles}}</td>
+      <td>
+        {{this.texts}}
+      </td>
+      <td>
+        <img src="{{this.image}}" height="100px" width="100px" alt="">
+      </td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>

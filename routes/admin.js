@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET home page. */
 var cards=[
   {
   image:'https://i.redd.it/2o648aerezg51.png',
@@ -19,10 +18,27 @@ var cards=[
   texts:'This service provides a full stack application using Nodejs Express and MongoDB database'
 }
 ]
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express',cards,admin:false });
+
+
+router.get('/login', function(req, res, next) {
+  res.render('admin/adminlogin',{title:'admin'})
 });
-router.get('/consub',function(req,res){
-res.send("you have successfully submitted your details")
+router.post('/adminvalidation',function(req,res){
+console.log(req.body);
+if(req.body.username==='prijitht4@gmail.com'&& req.body.password==='1111'){
+  res.render('admin/adminpaget',{cards,admin:true})
+}else{
+  res.send("Invalid username or password")
+}
 })
+router.get('/addservice',function(req,res){
+  res.render('admin/addservices')
+})
+router.post('/servicesAdd',function(req,res){
+  console.log(req.body);
+  console.log(req.files.image)
+  
+})
+
+
 module.exports = router;
