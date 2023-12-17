@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var servicehelper=require('../helpers/addservicedetails')
 
 var cards=[
   {
@@ -35,9 +36,20 @@ router.get('/addservice',function(req,res){
   res.render('admin/addservices')
 })
 router.post('/servicesAdd',function(req,res){
-  console.log(req.body);
-  console.log(req.files.image)
-  
+  servicehelper.addservices(req.body,function(datas){
+    var immage=req.files.image
+    immage.mv('./public/images/'+datas+'.jpg',function(err,done){
+      if(!err){
+        res.render('admin/addservices')
+
+      }else{
+        console.log(err)
+      }
+    })
+    
+    
+  })
+ 
 })
 
 

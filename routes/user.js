@@ -1,5 +1,8 @@
 var express = require('express');
 var router = express.Router();
+const {render}=require('../app')
+var contacthelper = require('../helpers/addcontactdetails');
+
 
 /* GET home page. */
 var cardss=[
@@ -22,8 +25,10 @@ var cardss=[
 router.get('/', function(req, res, next) {
   res.render('user/index', { title: 'Express',cardss,admin:false });
 });
-router.get('/consub',function(req,res){
-res.send("you have successfully submitted your details")
+router.post('/consub',function(req,res){
+console.log(req.body)
+contacthelper.addContact(req.body);
+res.send('successfully submitted the details')
 })
 
 module.exports = router;
