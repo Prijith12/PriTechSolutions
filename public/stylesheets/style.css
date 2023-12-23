@@ -132,3 +132,16 @@ body {
 .addsh{
  block-size: auto; 
 }
+
+.custom-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+#exampleInput{
+  width: 500px;
+  height: 45px;
+}
+
+

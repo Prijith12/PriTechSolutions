@@ -6,6 +6,7 @@ const logger = require('morgan');
 const { engine } = require('express-handlebars');
 const fileupload=require('express-fileupload');
 const db=require('./config/connection')
+const session=require('express-session')
 
 
 const userRouter = require('./routes/user');
@@ -35,7 +36,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(fileupload())
-
+app.use(session({secret:'key',cookie:{maxAge:60000}}))
 
 db.connect();
 

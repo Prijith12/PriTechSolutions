@@ -10,16 +10,17 @@
     </tr>
   </thead>
   <tbody>
-    {{#each cards}}
+    {{#each cardss}}
     <tr>
-      <td>{{this.titles}}</td>
+      <td>{{this.title}}</td>
       <td>
-        {{this.texts}}
+        {{this.describtion}}
       </td>
       <td>
-        <img src="{{this.image}}" height="100px" width="100px" alt="">
+        <img src="/service-images/{{this._id}}.jpg" height="100px" width="100px" alt="">
       </td>
     </tr>
     {{/each}}
   </tbody>
 </table>
+<a href="/admin/contactusview" class="btn btn-primary mt-4">Users who tried to contact us</a>

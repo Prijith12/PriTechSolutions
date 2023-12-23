@@ -1,0 +1,25 @@
+<h2 class="mt-5 navbar-brand">Below are the users who registered to get in touch with us </h2>
+
+<table class="table table-striped mt-5">
+  <thead>
+    <tr>
+     
+      <th scope="col">Name</th>
+      <th scope="col">Contact Number</th>
+    <th scope="col">Email Address</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each condetailss}}
+    <tr>
+      <td>{{this.name}}</td>
+      <td>
+        {{this.contactNumber}}
+      </td>
+      <td>
+       {{this.email}}
+      </td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
