@@ -1,4 +1,7 @@
-var db=require('../config/connection')
+const { resolve } = require('path');
+var db=require('../config/connection');
+const { reject } = require('promise');
+const { ObjectId } = require('mongodb');
 module.exports={
 
 addContact: (details)=>{
@@ -20,6 +23,28 @@ viewcontact:function(){
 
         }
     })
+},
+deleteContact: function(id){
+    return new Promise(async(resolve,reject)=>{
+        if (ObjectId.isValid(id)) {
+           console.log("valid id format")
+          }else{
+            console.log("invalid id format")
+          }
+        console.log(id)
+        try{
+            var objectid= new ObjectId(id)
+       var result=await db.getDB().collection('contactUs').deleteOne({_id:objectid});
+       if(result.deletedCount>0){
+        resolve("Succesfully deleted the data")
+       }else{
+        reject("No data found or error deleting the data")
+       }
+        }catch(err){
+            reject(err)
+        }
+    })
+    
 }
 
     

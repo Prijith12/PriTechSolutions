@@ -2,6 +2,11 @@
     <div class="row custom-form-container">
       <div class="col-sm-12">
         <h1 class="text-center mt-5 navbar-brand">Login</h1>
+        {{#if invalidusr}}
+        <div class="alert alert-danger text-center mt-3" role="alert">
+          Invalid Email or Password!
+        </div>
+        {{/if}}
         <div class="mt-5 custom-form">
           <form action="/loginValidation" method="post">
             <div class="mb-3">
