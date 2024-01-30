@@ -4,6 +4,8 @@ const {render}=require('../app')
 var contacthelper = require('../helpers/addcontactdetails');
 var servicehelper=require('../helpers/addservicedetails');
 var usersignhelper=require('../helpers/signinSignup')
+var carthelper=require('../helpers/carthelper')
+const {ObjectId}=require('mongodb')
 
 
 const usrlogedchecking=function(req,res,next){
@@ -15,9 +17,15 @@ const usrlogedchecking=function(req,res,next){
 }
 
 router.get('/', function(req, res, next) {
-  let users=req.session.user
+  var users=req.session.user
+  var counts=0;
+  if(req.session.logged){
+    carthelper.viewCartCount(req.session.user).then((count)=>{
+      counts=count
+    })
+  }
   servicehelper.viewservices().then(function(cardss){
-    res.render('user/index', { title: 'Express',cardss,admin:false,users });
+    res.render('user/index', { title: 'Express',cardss,admin:false,users,counts});
 
   }).catch((err)=>{
     console.log(err)
@@ -51,9 +59,13 @@ router.post('/signupsav',(req,res)=>{
   
   usersignhelper.addSignUpDetails(req.body,function(data){
   if(data){
-    res.redirect('/login')
+    console.log(data)
+    req.session.user=data
+    req.session.logged=true
+    res.redirect('/')
   }else{
     res.send("error")
+    console.log('error')
   }
   })
 })
@@ -77,13 +89,30 @@ router.get('/logout',function(req,res){
 })
 
 router.get('/cart',usrlogedchecking,(req,res)=>{
-  res.render('user/cart')
+  carthelper.viewCart(req.session.user).then((data)=>{
+    var users=req.session.user;
+    res.render('user/cart',{data,users,admin:false})
+   
+  })
+ 
 })
 
 router.get('/home',(req,res)=>{
   res.redirect('/')
 })
 router.get('/serviceadd',usrlogedchecking,function(req,res){
-  res.send('Added to the cart')
+  
+  console.log(req.query.id)
+  console.log(req.session.user)
+  carthelper.addcart(req.session.user,req.query.id).then((data)=>{
+    console.log(data)
+  })
+ 
+  res.redirect('/')
+})
+router.get('/deleteCart',(req,res)=>{
+  carthelper.deleteCart(req.session.user,req.query.id).then(()=>{
+    res.redirect('/cart')
+  })
 })
 module.exports = router;

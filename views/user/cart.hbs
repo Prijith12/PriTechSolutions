@@ -1,1 +1,18 @@
-<h1 class="mt-5 text-center navbar-brand ">Cart is Empty</h1>
+<h1 class="mt-5 text-center navbar-brand mb-3 mb-5">Cart</h1>
+{{#if data.emptycart }}
+<h2 class="text-center">Cart is empty</h2>
+{{else}}
+<table class="table">
+    {{#each data.servicesdetails}}
+  <tr>
+    <td>
+        <img src="/service-images/{{this._id}}.jpg" height="100px" width="90px">
+    </td>
+    <td>{{this.title}}</td>
+    <td>{{this.price}} RS</td>
+    <td><a href="/deleteCart?id={{this._id}}"><button type="button" class="btn btn-danger">Remove</button></a></td>
+  </tr>
+  {{/each}}
+</table>
+
+{{/if}}
