@@ -18,10 +18,11 @@ const usrlogedchecking=function(req,res,next){
 
 router.get('/', function(req, res, next) {
   var users=req.session.user
-  var counts=0;
+  var counts;
   if(req.session.logged){
     carthelper.viewCartCount(req.session.user).then((count)=>{
-      counts=count
+      req.session.count=count;
+      counts=count;
     })
   }
   servicehelper.viewservices().then(function(cardss){
@@ -32,6 +33,9 @@ router.get('/', function(req, res, next) {
   })
   
 });
+router.get('/pritech',(req,res)=>{
+  res.redirect('/')
+})
 router.post('/consub',function(req,res){
 console.log(req.body)
 contacthelper.addContact(req.body);
@@ -91,8 +95,11 @@ router.get('/logout',function(req,res){
 router.get('/cart',usrlogedchecking,(req,res)=>{
   carthelper.viewCart(req.session.user).then((data)=>{
     var users=req.session.user;
-    res.render('user/cart',{data,users,admin:false})
+    
+    res.render('user/cart',{data,users,counts:req.session.count,admin:false})
    
+  }).catch((data)=>{
+    console.log(data)
   })
  
 })
@@ -114,5 +121,19 @@ router.get('/deleteCart',(req,res)=>{
   carthelper.deleteCart(req.session.user,req.query.id).then(()=>{
     res.redirect('/cart')
   })
+})
+router.get('/incrementSer',(req,res)=>{
+carthelper.incrementCart(req.session.user,req.query.id).then(()=>{
+  res.redirect('/cart');
+}).catch(()=>{
+  res.send('error incrementing the Quantity')
+})
+})
+router.get('/decrementSer',(req,res)=>{
+carthelper.decrementCart(req.session.user,req.query.id).then(()=>{
+  res.redirect('/cart')
+}).catch(()=>{
+  res.send('error decrementing the Quantity')
+})
 })
 module.exports = router;

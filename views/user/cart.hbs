@@ -3,14 +3,20 @@
 <h2 class="text-center">Cart is empty</h2>
 {{else}}
 <table class="table">
-    {{#each data.servicesdetails}}
   <tr>
+    <th>Image</th> <th>Service</th> <th>Quantity</th> <th>Price Per Product</th>
+  </tr>
+  <tr>
+    
+    {{#each data.servicesdetails}}
+
     <td>
-        <img src="/service-images/{{this._id}}.jpg" height="100px" width="90px">
+        <img src="/service-images/{{this.services._id}}.jpg" height="100px" width="90px">
     </td>
-    <td>{{this.title}}</td>
-    <td>{{this.price}} RS</td>
-    <td><a href="/deleteCart?id={{this._id}}"><button type="button" class="btn btn-danger">Remove</button></a></td>
+    <td>{{this.services.title}}</td>
+    <td><a href="/decrementSer?id={{this.services._id}}"><button>-</button></a><strong> {{this.quantity}} </strong><a href="/incrementSer?id={{this.services._id}}"><button>+</button></a></span> </td>
+    <td>{{this.services.price}} RS</td>
+    <td><a href="/deleteCart?id={{this.services._id}}"><button type="button" class="btn btn-danger" >Remove</button></a></td>
   </tr>
   {{/each}}
 </table>
