@@ -144,4 +144,16 @@ body {
   height: 45px;
 }
 
+.first-col {
+  height: 330px;
+  background-color: #f6f3f3;
+}
 
+.second-col {
+  height: 450px;
+  background-color: #f6f3f3;
+  margin-left: 10px; /* Added margin to create space between the columns */
+}
+.texts{
+  font-style: italic;
+}

@@ -1,0 +1,49 @@
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-6 first-col"> 
+            <h1 class=" text-center navbar-brand mt-4">User Details</h1>
+            <table class="mt-5">
+                <tr>
+                    <td>
+                         <h5 class="texts">User: </h5>
+                    </td>
+                    <td>
+                        <h5 class="texts">{{users.Name}}</h5>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <h5 class="texts">Email: </h5>
+                    </td>
+                    <td>
+                        <h5 class="texts">{{users.Email}}</h5>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <h5 class="texts">Total Items:  </h5>
+                    </td>
+                    <td>
+                        <h5 class="texts">{{counts}} </h5>
+                    </td>
+                </tr>
+                <tr>
+                    <td><h5 class="texts">Total Cost: </h5></td>
+                    <td><h5 class="texts">&#8377;{{total}}</h5></td>
+                </tr>
+              
+                    
+                
+            </table>
+            
+
+        </div>
+        <div class="col-2"></div>
+        <div class="col-3 second-col ml-5"> 
+            <h1 class=" navbar-brand text-center mt-4">Total <span>&#8377;{{total}}</span></h1>
+            <p>Scan the QR Code and Pay the total amount</p>
+            <img src="/images/WhatsApp.jpeg" alt="" height="200px" width="200px">
+        </div>
+        
+    </div>
+</div>

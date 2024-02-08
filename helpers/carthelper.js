@@ -1,6 +1,6 @@
-const { resolve } = require('path');
+
 const db=require('../config/connection');
-const { reject } = require('promise');
+
 const {ObjectId}=require('mongodb')
 
 module.exports={
@@ -130,7 +130,6 @@ module.exports={
                         }
                     }
                 ]).toArray();
-                console.log(result[0].cart[0].Quantity)
                 if(result[0].cart[0].Quantity==1){
                     db.getDB().collection('Cart').updateOne({Userid:user._id},{
                         $pull:{
@@ -151,7 +150,58 @@ module.exports={
             reject()
         }
         })
-    }
+    },
 
+TotalCost: (user)=>{
+    return new Promise(async(resolve,reject)=>{
+        try{
+        var result=await db.getDB().collection('Cart').aggregate([
+            {
+                $match:{Userid:user._id}
+            },
+            {
+                $unwind:'$cart'
+            },
+            {
+                $project:{
+                    cartid: { $convert: { input: '$cart.Serviceid', to: 'objectId' } },
+                    quantity:'$cart.Quantity'
+                }
+            },
+            {
+                $lookup:{
+                    from:'servicesData',
+                    localField:'cartid',
+                    foreignField:'_id',
+                    as:'products'
+                },
+                
+            },
+            {
+                $unwind:'$products'
+            },
+            {
+                $project:{
+                    'quantity':1,
+                    'products':1,
+                    totalcost:{$multiply:['$quantity',{$toDouble:'$products.price'}]}
+                }
+            },
+            {
+                $group:{
+                    _id:null,
+                    totalamount:{$sum:'$totalcost'}
+                }
+            }
+            
+            
+        ]).toArray()
+        resolve(result[0].totalamount);
+    }catch{
+        reject("Failed to load the totalcost");
+    }
+    })
+
+}
     
 }

@@ -1,6 +1,5 @@
-const { resolve } = require('path');
+
 var db=require('../config/connection');
-const { reject } = require('promise');
 const { ObjectId } = require('mongodb');
 module.exports={
 

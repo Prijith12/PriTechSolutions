@@ -22,11 +22,10 @@ router.get('/', function(req, res, next) {
   if(req.session.logged){
     carthelper.viewCartCount(req.session.user).then((count)=>{
       req.session.count=count;
-      counts=count;
     })
   }
   servicehelper.viewservices().then(function(cardss){
-    res.render('user/index', { title: 'Express',cardss,admin:false,users,counts});
+    res.render('user/index', { title: 'Express',cardss,admin:false,users,counts:req.session.count});
 
   }).catch((err)=>{
     console.log(err)
@@ -93,10 +92,10 @@ router.get('/logout',function(req,res){
 })
 
 router.get('/cart',usrlogedchecking,(req,res)=>{
-  carthelper.viewCart(req.session.user).then((data)=>{
+  carthelper.viewCart(req.session.user).then(async(data)=>{
     var users=req.session.user;
-    
-    res.render('user/cart',{data,users,counts:req.session.count,admin:false})
+    var total=await carthelper.TotalCost(req.session.user);
+    res.render('user/cart',{data,users,counts:req.session.count,admin:false,total})
    
   }).catch((data)=>{
     console.log(data)
@@ -117,11 +116,13 @@ router.get('/serviceadd',usrlogedchecking,function(req,res){
  
   res.redirect('/')
 })
+
 router.get('/deleteCart',(req,res)=>{
   carthelper.deleteCart(req.session.user,req.query.id).then(()=>{
     res.redirect('/cart')
   })
 })
+
 router.get('/incrementSer',(req,res)=>{
 carthelper.incrementCart(req.session.user,req.query.id).then(()=>{
   res.redirect('/cart');
@@ -129,6 +130,7 @@ carthelper.incrementCart(req.session.user,req.query.id).then(()=>{
   res.send('error incrementing the Quantity')
 })
 })
+
 router.get('/decrementSer',(req,res)=>{
 carthelper.decrementCart(req.session.user,req.query.id).then(()=>{
   res.redirect('/cart')
@@ -136,4 +138,12 @@ carthelper.decrementCart(req.session.user,req.query.id).then(()=>{
   res.send('error decrementing the Quantity')
 })
 })
+
+router.get('/placeOrder',usrlogedchecking,(req,res)=>{
+carthelper.TotalCost(req.session.user).then((totalcost)=>{
+  res.render('user/placeorder',{users:req.session.user,counts:req.session.count,admin:false,total:totalcost});
+})
+})
+
+
 module.exports = router;

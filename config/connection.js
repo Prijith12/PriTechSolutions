@@ -5,8 +5,8 @@ const state={
 }
 module.exports.connect =async  function () {
     try {
-        const url = 'mongodb://127.0.0.1:27017'; // Replace with your MongoDB URL
-        const dbName = 'PriTechSolutions'; // Replace with your database name
+        const url = 'mongodb+srv://prijitht4:raistar1111p@cluster0.gxaf11j.mongodb.net'; 
+        const dbName = 'PriTechSolutions'; 
 
         const client =await MongoClient.connect(url);
 
