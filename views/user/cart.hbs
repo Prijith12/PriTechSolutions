@@ -1,4 +1,4 @@
-<div>
+<div class="container">
   <h1 class="mt-5 text-center navbar-brand mb-3 mb-5 mb-3">Cart</h1>
   {{#if data.emptycart}}
     <h2 class="text-center">Cart is empty</h2>
@@ -6,7 +6,7 @@
     {{#if counts}}
       <table class="table">
         <tr>
-          <th>Image</th> <th>Service</th> <th>Quantity</th> <th>Price Per Product</th>
+          <th>Image</th> <th>Service</th> <th>Quantity</th> <th>Price Per Service</th>
         </tr>
         {{#each data.servicesdetails}}
           <tr>

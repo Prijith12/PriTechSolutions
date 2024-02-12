@@ -121,7 +121,7 @@ body {
 }
 
 .navbar-toggler-icon {
-  background-color: #343a40; /* Dark color for toggler icon */
+  background-color: #eaecf1; /* Dark color for toggler icon */
 }
 
 /* Adjust search input width */
@@ -139,10 +139,7 @@ body {
   align-items: center;
 
 }
-#exampleInput{
-  width: 500px;
-  height: 45px;
-}
+
 
 .first-col {
   height: 330px;

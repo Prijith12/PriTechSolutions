@@ -198,7 +198,7 @@ TotalCost: (user)=>{
         ]).toArray()
         resolve(result[0].totalamount);
     }catch{
-        reject("Failed to load the totalcost");
+        resolve();
     }
     })
 

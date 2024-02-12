@@ -16,16 +16,14 @@ const usrlogedchecking=function(req,res,next){
   }
 }
 
-router.get('/', function(req, res, next) {
+router.get('/', async function(req, res, next) {
   var users=req.session.user
-  var counts;
   if(req.session.logged){
-    carthelper.viewCartCount(req.session.user).then((count)=>{
-      req.session.count=count;
-    })
+   var counts=await carthelper.viewCartCount(req.session.user)
+   req.session.count=counts;
   }
   servicehelper.viewservices().then(function(cardss){
-    res.render('user/index', { title: 'Express',cardss,admin:false,users,counts:req.session.count});
+    res.render('user/index', { title: 'Express',cardss,admin:false,users,counts});
 
   }).catch((err)=>{
     console.log(err)
@@ -94,8 +92,9 @@ router.get('/logout',function(req,res){
 router.get('/cart',usrlogedchecking,(req,res)=>{
   carthelper.viewCart(req.session.user).then(async(data)=>{
     var users=req.session.user;
+    var counts=await carthelper.viewCartCount(req.session.user)
     var total=await carthelper.TotalCost(req.session.user);
-    res.render('user/cart',{data,users,counts:req.session.count,admin:false,total})
+    res.render('user/cart',{data,users,counts,admin:false,total})
    
   }).catch((data)=>{
     console.log(data)
@@ -135,13 +134,14 @@ router.get('/decrementSer',(req,res)=>{
 carthelper.decrementCart(req.session.user,req.query.id).then(()=>{
   res.redirect('/cart')
 }).catch(()=>{
-  res.send('error decrementing the Quantity')
+  res.redirect('/cart');
 })
 })
 
 router.get('/placeOrder',usrlogedchecking,(req,res)=>{
-carthelper.TotalCost(req.session.user).then((totalcost)=>{
-  res.render('user/placeorder',{users:req.session.user,counts:req.session.count,admin:false,total:totalcost});
+carthelper.TotalCost(req.session.user).then(async(totalcost)=>{
+  var counts=await carthelper.viewCartCount(req.session.user)
+  res.render('user/placeorder',{users:req.session.user,counts,admin:false,total:totalcost});
 })
 })
 
