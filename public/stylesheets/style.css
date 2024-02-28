@@ -147,10 +147,26 @@ body {
 }
 
 .second-col {
-  height: 450px;
+  height: 330px;
   background-color: #f6f3f3;
   margin-left: 10px; /* Added margin to create space between the columns */
 }
 .texts{
   font-style: italic;
+}
+.email{
+color: #007bff;
+}
+
+.custom-former {
+ 
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.custom-former .container {
+  max-width: 400px; /* Adjust the maximum width as needed */
 }

@@ -1,0 +1,34 @@
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="text-center">
+                <h1 class="navbar-brand mt-5">You have successfully paid the amount. Our team will contact you and finish your project with in the time limit.</h1>
+                <h6 class="mt-5">For any inquiries or questions, please feel free to reach out to us at the email address provided below</h6>
+                <h6 class="email">Pritechsolution@gmail.com</h6>
+                {{!<a href="/viewOrders" class="btn btn-primary mt-5">View Orders</a>}}
+                <button type="button" class="btn btn-primary" id="viewOrdersBtn">View Orders</button>
+                <hr class="mt-5">
+                <hr class="mt-5">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" tabindex="-1" id="processingModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Processing Your Request</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Thank you for your interest in viewing your orders. We are currently processing your request. Please be patient while we retrieve your order details</p>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  document.getElementById('viewOrdersBtn').addEventListener('click', function() {
+    var modal = new bootstrap.Modal(document.getElementById('processingModal'));
+    modal.show();
+  });
+</script>

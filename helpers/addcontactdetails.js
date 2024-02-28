@@ -25,12 +25,6 @@ viewcontact:function(){
 },
 deleteContact: function(id){
     return new Promise(async(resolve,reject)=>{
-        if (ObjectId.isValid(id)) {
-           console.log("valid id format")
-          }else{
-            console.log("invalid id format")
-          }
-        console.log(id)
         try{
             var objectid= new ObjectId(id)
        var result=await db.getDB().collection('contactUs').deleteOne({_id:objectid});

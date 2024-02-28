@@ -1,11 +1,11 @@
 <div class="container">
     <div class="row mt-5">
-        <div class="col-6 first-col"> 
+        <div class="col-6 first-col">
             <h1 class=" text-center navbar-brand mt-4">User Details</h1>
             <table class="mt-5">
                 <tr>
                     <td>
-                         <h5 class="texts">User: </h5>
+                        <h5 class="texts">User: </h5>
                     </td>
                     <td>
                         <h5 class="texts">{{users.Name}}</h5>
@@ -21,29 +21,118 @@
                 </tr>
                 <tr>
                     <td>
-                        <h5 class="texts">Total Items:  </h5>
+                        <h5 class="texts">Total Items: </h5>
                     </td>
                     <td>
                         <h5 class="texts">{{counts}} </h5>
                     </td>
                 </tr>
                 <tr>
-                    <td><h5 class="texts">Total Cost: </h5></td>
-                    <td><h5 class="texts">&#8377;{{total}}</h5></td>
+                    <td>
+                        <h5 class="texts">Total Cost: </h5>
+                    </td>
+                    <td>
+                        <h5 class="texts">&#8377;{{total}}</h5>
+                    </td>
                 </tr>
-              
-                    
-                
+
+
+
             </table>
-            
+
 
         </div>
         <div class="col-2"></div>
-        <div class="col-3 second-col ml-5"> 
-            <h1 class=" navbar-brand text-center mt-4">Total <span>&#8377;{{total}}</span></h1>
-            <p>Scan the QR Code and Pay the total amount</p>
-            <img src="/images/WhatsApp.jpeg" alt="" height="200px" width="200px">
+        <div class="col-3 second-col ml-5">
+
+
+            <h1 class=" navbar-brand text-center mt-4">Payment</h1>
+            {{#if invalid}}
+            <div class="alert alert-danger text-center mt-3" role="alert">
+                Please Select the payment method!
+            </div>
+            {{/if}}
+            <h1 class=" navbar-brand mt-4">Total <span>&#8377;{{total}}</span></h1>
+            <form id="form" method="post"> 
+                <div class="payment-options mt-4">
+                    <input type="radio" id="pay-online" name="payment-method" value="Pay-Online">
+                    <label for="pay-online">Pay Online</label>
+                    <input type="text" name="total" hidden value="{{total}}">
+                </div>
+                <button type="submit" class="btn btn-primary mt-2">Pay Now</button>
+            </form>
         </div>
-        
+
     </div>
 </div>
+
+<script>
+          $(document).ready(function(){
+    $('#form').submit(function(e){
+        e.preventDefault(); 
+        var formData = $(this).serialize();
+        $.ajax({
+            url: '/paymentproc', 
+            type: 'POST', 
+            data: formData,
+            success: function(response){
+                if(response=='error'){
+                    alert('please select the payment method')
+                }else{
+                    call(response);
+                }
+                
+            },
+            error: function(xhr, status, error){
+                console.error(xhr.responseText);
+            }
+        });
+    });
+});
+
+
+
+
+
+            function call(response){
+                var options = {
+                        "key": "rzp_live_wskRWjy99OdqZy",
+                        "amount": response.amount,
+                        "currency": "INR",
+                        "name": "PritechSolutions",
+                        "description": "Test Transaction",
+                        "image": "https://example.com/your_logo",
+                        "order_id": response.id,
+                        "handler": function (response) {
+                            verify(response);
+                        },
+                        "prefill": {
+                            "name": "Gaurav Kumar",
+                            "email": "gaurav.kumar@example.com",
+                            "contact": "9000090000"
+                        },
+                        "notes": {
+                            "address": "Razorpay Corporate Office"
+                        },
+                        "theme": {
+                            "color": "#3399cc"
+                        }
+                    };
+                    var rzp1 = new Razorpay(options);
+                    rzp1.open();
+            }
+            function verify(response){
+                $.ajax({
+                    url:'/verifyPayment',
+                    type:'POST',
+                    data:response,
+                    success:function(status){
+                        if(status){
+                            window.location.href = '/orders';
+                        }else{
+                            alert("Error Crediting The Amount");
+                        }
+                    }
+                })
+            }
+</script>
